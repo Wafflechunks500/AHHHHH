@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://v4knp3y7b2gh"]
+
+[ext_resource type="Script" uid="uid://tm1n5rhwr17q" path="res://physiology_test.gd" id="1_yyx7x"]
+
+[node name="PhysiologyTest" type="Control" unique_id=514407363]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yyx7x")

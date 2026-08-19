@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b2nyw6akyh3y"]
+
+[ext_resource type="Script" uid="uid://cf1k6ejf8mewo" path="res://emotion_test.gd" id="1_3rnsw"]
+
+[node name="EmotionTest" type="Node" unique_id=970082962]
+script = ExtResource("1_3rnsw")
