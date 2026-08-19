@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://dv7qqnsl5mip4"]
-
-[ext_resource type="Script" uid="uid://dda0hrk61bk4u" path="res://scripts/brain/character_brain.gd" id="1_y06n2"]
-
-[node name="BrainTest" type="Node" unique_id=2072520183]
-script = ExtResource("1_y06n2")
