@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bdyuagdni0tuk"]
+
+[ext_resource type="Script" uid="uid://q6bmky5run4q" path="res://scripts/tests/character_brain_test.gd" id="1_cpumh"]
+
+[node name="CharacterBrainTest" type="Node" unique_id=2133357950]
+script = ExtResource("1_cpumh")
