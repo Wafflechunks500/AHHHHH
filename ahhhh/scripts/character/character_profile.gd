@@ -57,11 +57,30 @@ func get_preferences() -> CharacterPreferences:
 
 func set_personality(key: String, value: float) -> void:
 	initialize()
-	personality.set_value(key, value)
+	personality.set_trait(key, value)
 
 func get_personality_value(key: String, fallback: float = 0.5) -> float:
 	initialize()
-	return personality.get_value(key, fallback)
+	var value := personality.get_trait(key)
+	# CharacterPersonality returns 0.0 for an unknown trait. Preserve the
+	# profile API's fallback behavior for callers that request an unsupported key.
+	if value == 0.0 and not _personality_has_trait(key):
+		return fallback
+	return value
+
+func _personality_has_trait(key: String) -> bool:
+	return key in [
+		"confidence", "empathy", "assertiveness", "curiosity", "openness",
+		"sociability", "caution", "emotional_sensitivity", "impulsiveness",
+		"playfulness", "independence", "need_for_approval", "emotional_resilience",
+		"patience", "attachment_tendency", "trustfulness", "suspiciousness",
+		"reassurance_seeking", "caretaking", "vulnerability_comfort",
+		"social_initiative", "rejection_sensitivity", "criticism_sensitivity",
+		"embarrassment_proneness", "praise_sensitivity", "intensity_seeking",
+		"overwhelm_sensitivity", "confrontation", "avoidance", "defensiveness",
+		"help_seeking", "action_bias", "planning_tendency", "familiarity_preference",
+		"novelty_seeking", "routine_preference"
+	]
 
 func get_profile_state() -> Dictionary:
 	initialize()
@@ -77,10 +96,27 @@ func get_profile_state() -> Dictionary:
 			"hometown": biography.hometown,
 			"occupation": biography.occupation
 		},
-		"personality": personality.to_dictionary(),
+		"personality": _personality_state(),
 		"appearance": appearance.get_appearance_state(),
 		"biography": biography.get_biographical_state()
 	}
+
+func _personality_state() -> Dictionary:
+	var result := {}
+	for key in [
+		"confidence", "empathy", "assertiveness", "curiosity", "openness",
+		"sociability", "caution", "emotional_sensitivity", "impulsiveness",
+		"playfulness", "independence", "need_for_approval", "emotional_resilience",
+		"patience", "attachment_tendency", "trustfulness", "suspiciousness",
+		"reassurance_seeking", "caretaking", "vulnerability_comfort",
+		"social_initiative", "rejection_sensitivity", "criticism_sensitivity",
+		"embarrassment_proneness", "praise_sensitivity", "intensity_seeking",
+		"overwhelm_sensitivity", "confrontation", "avoidance", "defensiveness",
+		"help_seeking", "action_bias", "planning_tendency", "familiarity_preference",
+		"novelty_seeking", "routine_preference"
+	]:
+		result[key] = personality.get_trait(key)
+	return result
 
 func get_identity_description() -> String:
 	initialize()
@@ -114,5 +150,5 @@ func print_state() -> void:
 	print("Name: ", biography.get_display_name())
 	print("Age: ", biography.age)
 	print("Archetype: ", archetype)
-	print("Personality: ", personality.to_dictionary())
+	print("Personality: ", _personality_state())
 	print("========================================")
